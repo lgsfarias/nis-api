@@ -2,13 +2,14 @@ version: '3.8'
 
 services:
   nginx:
-    image: nginx:latest
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
     container_name: nginx_container
     ports:
       - "${NGINX_PORT}:80"
     volumes:
       - ./public:/var/www/html/public
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
 

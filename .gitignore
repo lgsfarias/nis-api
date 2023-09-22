@@ -1,14 +1,18 @@
 # Ignorar o arquivo .env para manter informações sensíveis fora do repositório
 .env
 
-# Ignorar os diretórios e arquivos padrão do Symfony
-/var/
-/vendor/
-/public/bundles/
-
 # Ignorar diretórios de desenvolvimento específicos
 .idea/  # Para usuários do IntelliJ/PHPStorm
 
 # Ignorar arquivos do Docker
 *.log
 *.sql
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/

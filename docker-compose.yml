@@ -13,6 +13,16 @@ services:
     depends_on:
       - php
 
+  nextjs:
+    image: node:18
+    container_name: nextjs_container
+    working_dir: /var/www/html/frontend
+    volumes:
+      - ./frontend:/var/www/html/frontend
+    command: npm run dev
+    ports:
+      - "${NEXTJS_PORT}:3000"
+
   php:
     build:
       context: .

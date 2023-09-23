@@ -29,7 +29,7 @@ class CitizenController extends AbstractController
     public function create(Request $request): Response
     {
         $body = json_decode($request->getContent(), true);
-        if (!isset($body['name'])) {
+        if (!isset($body['name']) || empty($body['name'])) {
             return new JsonResponse([
                 'message' => 'Name is required',
             ], Response::HTTP_BAD_REQUEST);

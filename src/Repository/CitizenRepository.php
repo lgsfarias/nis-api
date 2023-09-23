@@ -21,28 +21,38 @@ class CitizenRepository extends ServiceEntityRepository
         parent::__construct($registry, Citizen::class);
     }
 
-//    /**
-//     * @return Citizen[] Returns an array of Citizen objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Find a Citizen by its NIS
+     *
+     * @param string $nis
+     * @return Citizen|null
+     */
+    public function findByNIS(string $nis): ?Citizen
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.nis = :nis')
+            ->setParameter('nis', $nis)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-//    public function findOneBySomeField($value): ?Citizen
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Save a new Citizen and assign a NIS to them
+     *
+     * @param string $name
+     * @return Citizen
+     * @throws \Exception
+     */
+    public function saveCitizen(string $name, string $nis): Citizen
+    {
+        $citizen = new Citizen();
+        $citizen->setName($name);
+        $citizen->setNis($nis);
+
+        $em = $this->getEntityManager();
+        $em->persist($citizen);
+        $em->flush();
+
+        return $citizen;
+    }
 }

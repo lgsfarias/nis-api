@@ -123,6 +123,18 @@ Inicie os serviços usando Docker Compose
 docker-compose up -d
 ```
 
+Na primeira vez que rodar o projeto, instale as dependências do Symfony
+
+```bash
+docker exec -it php_container composer install
+```
+
+Ainda dentro do container, execute as migrações do Doctrine para criar as tabelas necessárias:
+
+```bash
+docker exec -it php_container php bin/console doctrine:migrations:migrate
+```
+
 <br/>
 
 ## 💻 Acesso a aplicação

@@ -31,7 +31,7 @@ class CitizenController extends AbstractController
         $body = json_decode($request->getContent(), true);
         if (!isset($body['name']) || empty($body['name'])) {
             return new JsonResponse([
-                'message' => 'Name is required',
+                'message' => 'Nome é obrigatório',
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -52,7 +52,7 @@ class CitizenController extends AbstractController
     {
         if (!NISUtil::isValidNis($nis)) {
             return new JsonResponse([
-                'message' => 'Invalid NIS',
+                'message' => 'NIS inválido',
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -60,7 +60,7 @@ class CitizenController extends AbstractController
 
         if (!$citizen) {
             return new JsonResponse([
-                'message' => 'Citizen not found',
+                'message' => 'Cidadão não encontrado',
             ], Response::HTTP_NOT_FOUND);
         }
 

@@ -1,0 +1,19 @@
+### Obter dados do cidadão pelo NIS
+GET http://localhost:8080/api/citizen/01280237578
+Accept: application/json
+
+###
+
+### Criar um novo cidadão
+POST http://localhost:8080/api/citizen
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Fulano de Tal"
+}
+
+###
+
+### Validar NIS
+GET http://localhost:8080/api/validate/01280237578

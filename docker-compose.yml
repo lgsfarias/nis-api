@@ -12,6 +12,7 @@ services:
       - ./public:/var/www/html/public
     depends_on:
       - php
+      - nextjs
 
   nextjs:
     image: node:18

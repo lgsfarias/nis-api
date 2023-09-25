@@ -149,7 +149,7 @@ docker exec -it php_container php bin/console doctrine:migrations:migrate
 Para rodar os testes de unidade, execute o comando:
 
 ```bash
-docker exec -it php_container bin/phpunit
+docker exec -it php_container php bin/phpunit
 ```
 
 <br/>

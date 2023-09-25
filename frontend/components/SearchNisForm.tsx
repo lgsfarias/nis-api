@@ -2,13 +2,15 @@
 
 import { formatNIS } from '@/utils/nisUtils';
 import { useState } from 'react';
+import Button from './Button';
 
 type Props = {
-  onSearch: (nis: string) => void;
+  onSearch: (nis: string) => Promise<void>;
 };
 
 const SearchNISForm: React.FC<Props> = ({ onSearch }) => {
   const [displayNis, setDisplayNIS] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDisplayNIS(formatNIS(e.target.value));
@@ -16,8 +18,12 @@ const SearchNISForm: React.FC<Props> = ({ onSearch }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const rawNis = displayNis.replace(/\D/g, '');
-    onSearch(rawNis);
+    onSearch(rawNis).finally(() => {
+      setLoading(false);
+      setDisplayNIS('');
+    });
   };
 
   return (
@@ -31,9 +37,12 @@ const SearchNISForm: React.FC<Props> = ({ onSearch }) => {
           onChange={(e) => handleChange(e)}
           required
         />
-        <button className="uppercase font-semibold tracking-wider px-4 py-2 rounded text-white bg-blue-600">
-          Pesquisar
-        </button>
+        <Button
+          type="submit"
+          loading={loading}
+        >
+          Buscar
+        </Button>
       </div>
     </form>
   );

@@ -1,17 +1,23 @@
 'use client';
 
 import { useState } from 'react';
+import Button from './Button';
 
 type Props = {
-  onSubmit: (name: string) => void;
+  onSubmit: (name: string) => Promise<void>;
 };
 
 const CitizenForm: React.FC<Props> = ({ onSubmit }) => {
   const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(name);
+    setLoading(true);
+    onSubmit(name).finally(() => {
+      setLoading(false);
+      setName('');
+    });
   };
 
   return (
@@ -25,9 +31,12 @@ const CitizenForm: React.FC<Props> = ({ onSubmit }) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
-        <button className="uppercase font-semibold tracking-wider px-4 py-2 rounded text-white bg-blue-600">
+        <Button
+          type="submit"
+          loading={loading}
+        >
           Cadastrar
-        </button>
+        </Button>
       </div>
     </form>
   );

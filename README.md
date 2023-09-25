@@ -158,42 +158,49 @@ docker exec -it php_container bin/phpunit
 
 ```yml
 POST /api/citizen
-    - Descrição: Adicionar um cidadão na base de dados.
-    - Body: {
-      name: "Nome do Cidadão",
+  - Descrição: Adicionar um cidadão na base de dados.
+  - Body: {
+    name: "Nome do Cidadão",
+  }
+  - Resposta de Sucesso (201 Created): {
+    nis: "12345678900",
+    name: "Nome do Cidadão",
+  }
+  - Respostas de Erro:
+    - 400 Bad Request: {
+      message: "Nome é obrigatório",
     }
-    - Resposta de Sucesso (201 Created): {
-      nis: "12345678900",
-      name: "Nome do Cidadão",
-    }
-    - Respostas de Erro:
-      - 400 Bad Request: {
-        message: "Nome é obrigatório",
-      }
 ```
 
 ```yml
 GET /api/citizen/{nis}
-    - Descrição: Retornar os dados de um cidadão com base no NIS fornecido.
-    - Sucesso (200 OK): {
-      nis: "12345678900",
-      name: "Nome do Cidadão",
+  - Descrição: Retornar os dados de um cidadão com base no NIS fornecido.
+  - Sucesso (200 OK): {
+    nis: "12345678900",
+    name: "Nome do Cidadão",
+  }
+  - Respostas de Erro:
+    - 400 Bad Request: {
+      message: "NIS inválido",
     }
-    - Respostas de Erro:
-      - 400 Bad Request: {
-        message: "NIS inválido",
-      }
-      - 404 Not Found: {
-        message: "Cidadão não encontrado",
-      }
+    - 404 Not Found: {
+      message: "Cidadão não encontrado",
+    }
 ```
 
 ```yml
-GET /api/validate/{nis}
-    - Descrição: Validar o NIS fornecido.
-    - Sucesso (200 OK): {
-      nis: "12345678900",
-      isValid: true ou false,
+POST /api/validate
+  - Descrição: Validar o NIS fornecido.
+  - Body: {
+    nis: "12345678900"
+  }
+  - Resposta de Sucesso (200 OK): {
+    nis: "12345678900",
+    isValid: true ou false,
+  }
+  - Respostas de Erro:
+    - 400 Bad Request: {
+      message: "NIS é obrigatório",
     }
 ```
 

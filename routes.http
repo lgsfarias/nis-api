@@ -16,4 +16,10 @@ Accept: application/json
 ###
 
 ### Validar NIS
-GET http://localhost:8080/api/validate/01280237578
+POST http://localhost:8080/api/validate
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nis": "01280237578"
+}

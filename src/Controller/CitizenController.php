@@ -71,10 +71,19 @@ class CitizenController extends AbstractController
     }
 
     /**
-     * @Route("/validate/{nis}", methods={"GET"})
+     * @Route("/validate", methods={"POST"})
      */
-    public function validateNIS(string $nis): Response
+    public function validateNIS(Request $request): Response
     {
+        $body = json_decode($request->getContent(), true);
+        if (!isset($body['nis']) || empty($body['nis'])) {
+            return new JsonResponse([
+                'message' => 'NIS é obrigatório',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $nis = $body['nis'];
+
         $isValid = NISUtil::isValidNis($nis);
 
         return new JsonResponse([
